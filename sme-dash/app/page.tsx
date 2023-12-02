@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
+import Modal from '@mui/material/Modal';
 
 const requestLightToken = () => {
 	const myHeaders = new Headers();
@@ -127,8 +128,22 @@ const createPaymentRequest = async (params: any) => {
 	});
 };
 
+const style = {
+	position: 'absolute' as 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+};
+
 export default function Home() {
-	const [url, setUrl] = useState(null);
+	const [url, setUrl] = useState('');
+	const [open, setOpen] = useState(false);
+	const handleClose = () => setOpen(false);
 
 	const payNow = () => {
 		const params = {
@@ -137,31 +152,38 @@ export default function Home() {
 
 		createPaymentRequest(params).then((response) => {
 			setUrl(response.url);
+			setOpen(true);
 		});
 	};
 
-	if (url) {
-		return (
-			<div
-				style={{
-                    display: 'flex',
-                    alignContent: 'center',
-                    height: '100vh',
-                    justifyContent: 'center'
-				}}
-			>
-				<QRCode
-					size={256}
-					style={{ height: 'auto', maxWidth: '250px', width: '250px' }}
-					value={url}
-					viewBox={`0 0 256 256`}
-				/>
-			</div>
-		);
-	}
-
 	return (
 		<>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<div
+					style={{
+						display: 'flex',
+						alignContent: 'center',
+						height: '100vh',
+						justifyContent: 'center',
+					}}
+				>
+					<QRCode
+						size={256}
+						style={{
+							height: 'auto',
+							maxWidth: '250px',
+							width: '250px',
+						}}
+						value={url}
+						viewBox={`0 0 256 256`}
+					/>
+				</div>
+			</Modal>
 			<section className="container px-4 mx-auto">
 				<div className="flex items-center gap-x-3">
 					<span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
