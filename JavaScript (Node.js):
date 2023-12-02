@@ -2,3 +2,20 @@ JavaScript (Node.js):
 JavaScript is commonly used for building web applications, and Node.js is a server-side JavaScript runtime. It's well-suited for handling asynchronous operations, making it a good choice for applications that involve handling API requests.
 
 Example code (Node.js):
+// Sample code to handle payment request using an Instant EFT API
+const express = require('express');
+const app = express();
+
+// Define API endpoints and handle payment requests
+app.post('/generateQRCode', (req, res) => {
+    // Logic to generate QR code and initiate payment
+    // ...
+
+    res.json({ qrCodeData: '...', transactionId: '...' });
+});
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
