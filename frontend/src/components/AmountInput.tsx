@@ -1,6 +1,5 @@
 import { Button, NumberInput, NumberInputField } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 import { createPaymentRequest } from '../utils';
 
 export const AmountInput = ({ name, control, ...props }: any) => {
