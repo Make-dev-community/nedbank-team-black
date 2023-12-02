@@ -13,6 +13,8 @@ export const AmountInput = ({ name, control, ...props }: any) => {
           {...props}
           value={field.value}
           onChange={(valueString) => field.onChange(Number(valueString))}
+          outline
+          variant="outline"
         >
           <NumberInputField {...field} />
         </NumberInput>
@@ -23,7 +25,6 @@ export const AmountInput = ({ name, control, ...props }: any) => {
 
 export const AmountInputForm = () => {
   const { handleSubmit, register, control } = useForm();
-  const navigate = useNavigate();
 
   const onSubmit = async (data: any) => {
     const response = await createPaymentRequest(data);
